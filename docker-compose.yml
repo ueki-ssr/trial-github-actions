@@ -1,0 +1,12 @@
+volumes:
+  dummy_volume:
+version: '3'
+services:
+  python:
+    build:
+      context: ./docker/python/
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app/
+      # 除外したいディレクトリがマウントされないようにダミーボリュームをマウントする
+      - dummy_volume:/app/.venv/

@@ -1,0 +1,24 @@
+name: PyTest
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  pytest:
+    name: Run tests with pytest
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: docker-compose build
+      - name: DockerComposeUp
+        run: docker-compose up -d
+      - name: Install
+        run: docker-compose exec -T python pipenv install
+      - name: Test
+        run: docker-compose exec -T python pipenv run pytest
