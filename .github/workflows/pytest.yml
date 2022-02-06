@@ -14,11 +14,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: pip install --upgrade pip
-        run: pip install --upgrade pip
-      - name: pip install pipenv
-        run: pip install pipenv
-      - name: pipenv install -d
-        run: pipenv install -d
+      - name: Build
+        run: docker-compose build
+      - name: DockerComposeUp
+        run: docker-compose up -d
+      - name: Install
+        run: docker-compose exec -T app poetry install
       - name: Test
-        run: pipenv run pytest
+        run: docker-compose exec -T app poetry run pytest
